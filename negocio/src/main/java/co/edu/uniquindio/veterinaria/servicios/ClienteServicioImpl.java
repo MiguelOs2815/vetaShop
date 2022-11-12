@@ -1,8 +1,12 @@
 package co.edu.uniquindio.veterinaria.servicios;
 
 import co.edu.uniquindio.veterinaria.entidades.Cliente;
+import co.edu.uniquindio.veterinaria.entidades.Consulta;
+import co.edu.uniquindio.veterinaria.entidades.Mascota;
 import co.edu.uniquindio.veterinaria.entidades.Producto;
 import co.edu.uniquindio.veterinaria.repo.ClienteRepo;
+import co.edu.uniquindio.veterinaria.repo.ConsultaRepo;
+import co.edu.uniquindio.veterinaria.repo.MascotaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,18 @@ public class ClienteServicioImpl implements ClienteServicio{
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ConsultaRepo consultaRepo;
+
+    @Autowired
+    private MascotaRepo mascotaRepo;
+
+    public ClienteServicioImpl(ClienteRepo usuarioRepo, EmailService emailService, ConsultaRepo consultaRepo, MascotaRepo mascotaRepo) {
+        this.usuarioRepo = usuarioRepo;
+        this.emailService = emailService;
+        this.consultaRepo = consultaRepo;
+        this.mascotaRepo = mascotaRepo;
+    }
 
     @Override
     public Cliente registrarUsuario(Cliente u) throws Exception {
@@ -125,4 +141,93 @@ public class ClienteServicioImpl implements ClienteServicio{
 //        System.out.println(emailService.sendEmail(sendEmail));
 //
 //    }
+
+
+    //--------------------------------CONSULTA-------------------------------
+    @Override
+    public Consulta crearConsulta(Consulta consulta) throws Exception {
+        return consultaRepo.save(consulta);
+    }
+
+
+    @Override
+    public Consulta obtenerConsulta(Integer codigo) throws Exception {
+
+        Optional<Consulta> consulta = consultaRepo.findById(codigo);
+        if(consulta.isEmpty()){
+            throw new Exception("No existe la consulta con ese codigo ");
+        }
+        return consulta.get();
+    }
+
+
+
+
+/*
+    public boolean ciudadRepetida(String nombreCiudad){
+        return ciudadRepo.findByNombreCiudad(nombreCiudad).orElse(null)!= null;
+    }
+
+ */
+
+
+    @Override
+    public Consulta actualizarConsulta(Consulta consulta) throws Exception {
+
+        Optional<Consulta> consultaGuardado = consultaRepo.findById(consulta.getCodigo());
+        if(consultaGuardado.isEmpty()){
+            throw new Exception("La consulta NO EXISTE");
+        }
+        return consultaRepo.save(consulta);
+    }
+
+    @Override
+    public void eliminarConsulta(Integer codigo) throws Exception {
+
+        Optional<Consulta> consultaGuardado = consultaRepo.findById(codigo);
+        if(consultaGuardado.isEmpty()){
+            throw new Exception("La consulta NO EXISTE");
+        }
+        consultaRepo.delete(consultaGuardado.get());
+    }
+
+    //Se lista toda las ciudades
+    @Override
+    public List<Consulta> listarConsultas()  {
+        return consultaRepo.findAll();
+    }
+
+
+    @Override
+    public Mascota obtenerMascota(Integer codigo) throws Exception {
+
+        Optional<Mascota> mascota = mascotaRepo.findById(codigo);
+        if(mascota.isEmpty()){
+            throw new Exception("No existe la mascota con ese codigo ");
+        }
+        return mascota.get();
+    }
+
+    @Override
+    public List<Consulta> obtenerConsultas(String codigo) throws Exception {
+
+        List<Consulta> consultas = mascotaRepo.obtenerConsultasMascotas(codigo);
+        if(consultas.isEmpty()){
+            return null;
+        }else {
+            return consultas;
+        }
+    }
+
+    @Override
+    public List<Mascota> obtenerMascotas(String codigo) throws Exception {
+
+        List<Mascota> mascotas = mascotaRepo.obtenerMascotasCliente(codigo);
+        if(mascotas.isEmpty()){
+            return null;
+        }else {
+            return mascotas;
+        }
+    }
+
 }

@@ -2,11 +2,9 @@ package co.edu.uniquindio.veterinaria.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @ToString
@@ -32,9 +30,14 @@ public class Mascota implements Serializable {
     @ManyToOne
     private Cliente cliente ;
 
-    @ToString.Exclude
+    @OneToMany(mappedBy = "mascota")
+    private List<Consulta> consultas;
+
+    /*@ToString.Exclude
     @OneToOne(mappedBy = "mascota")
     private Historial historial;
+
+     */
 
 
     public Mascota(Integer codigo, String nombre, String edad, String peso, String raza) {

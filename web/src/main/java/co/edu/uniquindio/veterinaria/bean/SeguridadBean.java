@@ -1,9 +1,8 @@
 package co.edu.uniquindio.veterinaria.bean;
 
+import co.edu.uniquindio.veterinaria.converter.MascotaConverter;
 import co.edu.uniquindio.veterinaria.dto.ProductoCarrito;
-import co.edu.uniquindio.veterinaria.entidades.Administrador;
-import co.edu.uniquindio.veterinaria.entidades.Cliente;
-import co.edu.uniquindio.veterinaria.entidades.Producto;
+import co.edu.uniquindio.veterinaria.entidades.*;
 import co.edu.uniquindio.veterinaria.servicios.AdministradorServicio;
 import co.edu.uniquindio.veterinaria.servicios.ClienteServicio;
 import co.edu.uniquindio.veterinaria.servicios.ProductoServicio;
@@ -18,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Scope("session")
@@ -55,12 +55,31 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private Double subtotal;
 
+    //------------CONSULTA---------------------------
+
+    @Getter @Setter
+    private Consulta consulta;
+
+    @Getter @Setter
+    private Mascota mascota;
+
+    @Getter @Setter
+    private List<Consulta> consultasUsuario;
+
+    @Getter @Setter
+    private List<Mascota> mascotasUsuario;
+
+    //----------------------------------------------
+
 
 
     @PostConstruct
     public void inicializar(){
         this.subtotal = 0.0;
         this.productosCarrito = new ArrayList<>();
+        this.consultasUsuario = new ArrayList<>();
+        consulta = new Consulta();
+        mascota = new Mascota();
 
     }
 
@@ -70,6 +89,8 @@ public class SeguridadBean implements Serializable {
 
                 usuarioSesion=usuarioServicio.login(email,password);
                 autenticado=true;
+                consultasUsuario = usuarioServicio.obtenerConsultas(usuarioSesion.getCodigo());
+                mascotasUsuario = usuarioServicio.obtenerMascotas(usuarioSesion.getCodigo());
                 return "/index?faces-redirect=true";
             } catch (Exception e) {
                 FacesMessage fm=new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta",e.getMessage());
@@ -172,5 +193,30 @@ public class SeguridadBean implements Serializable {
 //        }
 //
 //    }
+
+
+
+
+
+
+    //------------------------------------CONSULTA--------------------------------------------
+
+
+    public void registrarConsulta(){
+
+        try {
+
+            usuarioServicio.crearConsulta(consulta);
+            consultasUsuario.add(consulta);
+            consulta=new Consulta();
+            mascota= new Mascota();
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
+            FacesContext.getCurrentInstance().addMessage("mensaje_registrar_consulta", facesMessage);
+
+        }catch (Exception e){
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("mensaje_registrar_consulta", facesMessage);
+        }
+    }
 
 }

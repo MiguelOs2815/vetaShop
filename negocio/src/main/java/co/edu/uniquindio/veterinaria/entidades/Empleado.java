@@ -18,9 +18,9 @@ public class Empleado extends Persona implements Serializable {
 
 
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "empleado")
-    private List<Consulta> consultas;
+ //   @ToString.Exclude
+ //  @OneToMany(mappedBy = "empleado")
+    //private List<Consulta> consultas;
 
 //    @ToString.Exclude
 //    @OneToMany(mappedBy = "empleado")

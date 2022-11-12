@@ -1,6 +1,8 @@
 package co.edu.uniquindio.veterinaria.servicios;
 
 import co.edu.uniquindio.veterinaria.entidades.Cliente;
+import co.edu.uniquindio.veterinaria.entidades.Consulta;
+import co.edu.uniquindio.veterinaria.entidades.Mascota;
 import co.edu.uniquindio.veterinaria.entidades.Producto;
 
 import java.util.List;
@@ -24,4 +26,24 @@ public interface ClienteServicio {
     Cliente obtenerPorEmail(String email) throws Exception;
 
 //    void recuperarContrasena(Cliente usuario);
+
+
+
+    //-------------------------Consulta---------------------------
+
+    public Consulta crearConsulta(Consulta consulta) throws Exception;
+
+    public Consulta obtenerConsulta(Integer codigo) throws Exception;
+
+    public Consulta actualizarConsulta(Consulta consulta) throws Exception;
+
+    public void eliminarConsulta(Integer codigo) throws Exception;
+
+    public List<Consulta> listarConsultas();
+
+    public Mascota obtenerMascota(Integer codigo) throws Exception;
+
+    public List<Consulta> obtenerConsultas(String codigo) throws Exception;
+
+    public List<Mascota> obtenerMascotas(String codigo) throws Exception;
 }
