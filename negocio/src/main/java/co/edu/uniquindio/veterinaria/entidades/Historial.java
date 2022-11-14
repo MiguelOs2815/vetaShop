@@ -1,11 +1,9 @@
 package co.edu.uniquindio.veterinaria.entidades;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,17 +17,20 @@ public class Historial implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    /*
     @ToString.Exclude
     @OneToOne
     private Mascota mascota;
 
+    @Nullable
     @ToString.Exclude
     @OneToMany(mappedBy = "historial")
     private List<Consulta> consultas;
 
-    public Historial(Integer codigo) {
-        this.codigo = codigo;
-    }
+
+
+     */
 }

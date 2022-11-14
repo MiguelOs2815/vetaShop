@@ -1,11 +1,11 @@
 package co.edu.uniquindio.veterinaria.entidades;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,32 +17,34 @@ import java.time.LocalDateTime;
 public class Consulta implements Serializable {
 
     @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
     private String tipo_consulta;
 
-    private String fecha;
+    private LocalDate fecha;
 
     private String descripcion;
 
-    private double precio;
+    @Nullable
+    private String metodoPago;
 
-    private MetodoPago metodoPago;
+    @ManyToOne
+    private Mascota mascota;
 
+  /*  @Nullable
     @ToString.Exclude
     @ManyToOne
     private Historial historial;
 
-    @ToString.Exclude
-    @ManyToOne
-    private Empleado empleado;
+   */
 
-    public Consulta(Integer codigo, String tipo_consulta, String fecha, String descripcion, double precio, MetodoPago metodoPago) {
-        this.codigo = codigo;
+
+    public Consulta(String tipo_consulta, LocalDate fecha, String descripcion, String metodoPago) {
         this.tipo_consulta = tipo_consulta;
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.precio = precio;
         this.metodoPago = metodoPago;
     }
 }

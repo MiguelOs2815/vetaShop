@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <h1>Solicitar Consulta</h1>
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5" >
+
+                <p:outputLabel for="tipo_consulta" value = "Tipo Consulta: "/>
+                <p:inputText id="tipo_consulta" value = "#{seguridadBean.consulta.tipo_consulta}" required="true"/>
+                <p:messages for="tipo_consulta"/>
+
+                <p:outputLabel for="descripcion_consulta" value = "Descripcion: "/>
+                <p:inputText id="descripcion_consulta" value = "#{seguridadBean.consulta.descripcion}" required="true"/>
+                <p:messages for="descripcion_consulta"/>
+
+                <p:outputLabel for="fecha_consulta" value = "Fecha (dd/mm/aa) : "/>
+                <p:datePicker id="fecha_consulta" value = "#{seguridadBean.consulta.fecha}" required="true"/>
+                <p:messages for="fecha_consulta"/>
+
+
+                <p:outputLabel value="Medios de pago:" for="medioPago" />
+                <p:selectOneMenu id="medioPago" value="#{seguridadBean.consulta.metodoPago}" >
+                    <f:selectItem itemLabel="Seleccione un medio de pago" noSelectionOption="true"/>
+                    <f:selectItem itemValue="Efectivo" itemLabel="Efectivo"/>
+                    <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"/>
+                    <f:selectItem itemValue="Pse" itemLabel="Pse"/>
+                    <f:selectItem itemValue="Efecty" itemLabel="Efecty"/>
+                </p:selectOneMenu>
+                <p:message for="medioPago"/>
+
+
+                <p:outputLabel for="mascota_consulta" value = "Mascota: "/>
+                <p:selectOneMenu id="mascota_consulta" value="#{seguridadBean.consulta.mascota}" converter="#{mascotaConverter}">
+                    <f:selectItem itemLabel="Seleccione la mascota" noSelectionOption="true" itemValue="#{null}"/>
+                    <f:selectItems value="#{seguridadBean.mascotasUsuario}" var="mascota" itemLabel="#{mascota.nombre}" itemValue="#{mascota}"/>
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+            <p:commandButton value="REGISTRAR" action= "#{seguridadBean.registrarConsulta()}" icon="pi pi-plus-circle" update="@form,crud_consulta:lista_consultas,@this"/>
+            <p:growl for="mensaje_registrar_consulta" showDetail="true"/>
+        </h:form>
+
+
+        <h:form id="crud_consulta">
+
+            <p:dataTable id="lista_consultas" value="#{seguridadBean.consultasUsuario}" var="consulta" paginator="true" rows="10"
+                         rowKey="#{consulta.codigo}"
+                         paginatorPosition="bottom" rowSelectMode="add">
+
+
+                <p:column headerText="Codigo" >
+                    <h:outputText value="#{consulta.codigo}"/>
+                </p:column>
+
+                <p:column headerText="Tipo Consulta" >
+                    <h:outputText value="#{consulta.tipo_consulta}"/>
+                </p:column>
+
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{consulta.descripcion}"/>
+                </p:column>
+
+                <p:column headerText="Fecha" >
+                    <h:outputText value="#{consulta.fecha}"/>
+                </p:column>
+
+                <p:column headerText="Medio de pago" >
+                    <h:outputText value="#{consulta.metodoPago}"/>
+                </p:column>
+
+                <p:column headerText="Nombre Mascota" >
+                    <h:outputText value="#{consulta.mascota.nombre}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+
+
+
+
+    </ui:define>
+
+
+</ui:composition>
+</html>
