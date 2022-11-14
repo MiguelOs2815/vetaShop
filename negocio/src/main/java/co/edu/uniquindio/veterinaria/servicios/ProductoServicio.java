@@ -33,10 +33,6 @@ public interface ProductoServicio {
     void comentarProducto(String mensaje, Integer calificacion, Cliente usuario, Producto producto) throws Exception;
 
 
-
-
-
-
     void comprarProductos(Compra compra) throws Exception;
 
     List<Producto> buscarProductos(String nombreProducto, String[] filtros);

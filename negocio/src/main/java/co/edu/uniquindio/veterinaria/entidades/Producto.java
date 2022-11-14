@@ -48,22 +48,12 @@ public class Producto implements Serializable {
     @Positive
     private Double precio;
 
-
-
-
-
-
-
     @ElementCollection
     // Column ayuda a definir anotaciones en los atributos. No puede ir vacio
     private List<String> imagenes ;
 
     @ElementCollection
     private List<Categoria> categorias;
-
-
-
-
 
     //Aplicamos la relacion muchos a uno entre Producto y Usuario
 
