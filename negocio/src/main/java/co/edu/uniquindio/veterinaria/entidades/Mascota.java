@@ -22,7 +22,7 @@ public class Mascota implements Serializable {
 
     private String edad;
 
-    private String peso;
+    private TipoMascotas tipoMascotas;
 
     private String raza;
 
@@ -33,18 +33,19 @@ public class Mascota implements Serializable {
     @OneToMany(mappedBy = "mascota")
     private List<Consulta> consultas;
 
+    @OneToOne(mappedBy = "mascota")
+    private Afiliacion afiliacion;
+
     /*@ToString.Exclude
     @OneToOne(mappedBy = "mascota")
     private Historial historial;
 
      */
 
-
-    public Mascota(Integer codigo, String nombre, String edad, String peso, String raza) {
-        this.codigo = codigo;
+    public Mascota(String nombre, String edad, TipoMascotas tipoMascotas, String raza) {
         this.nombre = nombre;
         this.edad = edad;
-        this.peso = peso;
+        this.tipoMascotas = tipoMascotas;
         this.raza = raza;
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Crear Mascota</ui:define>
+    <ui:define name="content">
+        <p:panel header="Crear Mascota">
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="7">
+
+                    <p:outputLabel value="Nombre:" for="nombre_p"/>
+                    <p:inputText id="nombre_p" value="#{mascotaBean.mascota.nombre}" required="true"/>
+                    <p:message for="nombre_p"/>
+
+                    <p:outputLabel value="Edad:" for="edad_p"/>
+                    <p:inputText id="edad_p" value="#{mascotaBean.mascota.edad}"
+                                 required="true"/>
+                    <p:message for="edad_p"/>
+
+                    <p:outputLabel value="Raza:" for="raza_p"/>
+                    <p:inputText id="raza_p" value="#{mascotaBean.mascota.raza}"
+                                 required="true"/>
+                    <p:message for="raza_p"/>
+
+
+                    <p:outputLabel value="Tipo Mascotas:" for="tipoMascotas_p"/>
+                    <p:selectManyMenu id="tipoMascotas_p" value="#{mascotaBean.mascota.tipoMascotas}" showCheckbox="true"
+                                      required="true">
+                        <f:selectItems value="#{mascotaBean.tipoMascotas}" var="tipoMascota"/>
+
+                    </p:selectManyMenu>
+                    <p:message for="tipoMascotas_p"/>
+
+                </h:panelGrid>
+
+                <p:growl showDetail="true" for="msj-bean"/>
+                <p:commandButton value="Crear afiliacion" action="#{mascotaBean.crearMascota}" update="@form"
+                                 icon="pi pi-plus"/>
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -36,6 +36,10 @@ public class Cliente extends Persona implements Serializable {
     @ToString.Exclude
     private List<Producto> productos;
 
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<Afiliacion> afiliaciones;
+
     @ToString.Exclude
     @OneToMany(mappedBy = "usuario")
     private List<Compra> compras;
