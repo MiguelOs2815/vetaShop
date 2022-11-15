@@ -1,9 +1,6 @@
 package co.edu.uniquindio.veterinaria.servicios;
 
-import co.edu.uniquindio.veterinaria.entidades.Cliente;
-import co.edu.uniquindio.veterinaria.entidades.Consulta;
-import co.edu.uniquindio.veterinaria.entidades.Mascota;
-import co.edu.uniquindio.veterinaria.entidades.Producto;
+import co.edu.uniquindio.veterinaria.entidades.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ public interface ClienteServicio {
     void eliminarUsuario(String codigo)throws Exception;
 
     List<Cliente> listarUsuario();
+    AfiliacionMascota afiliarMascota()throws Exception;
 
 //    List<Producto> listarFavoritos(String email) throws Exception;
 

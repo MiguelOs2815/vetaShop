@@ -35,8 +35,8 @@
                             <li jsf:rendered="#{!seguridadBean.autenticadoAdmin}">
                                 <a href="/usuario/productos.xhtml" class="lin">Productos</a>
                             </li>
-                            <li jsf:rendered="#{!seguridadBean.autenticadoAdmin}">
-                                <a href="index.html" class="lin">Afiliaciones</a>
+                            <li jsf:rendered="#{seguridadBean.autenticado}">
+                                <a href="afiliaciones.xhtml" class="lin">Afiliaciones</a>
                             </li>
                             <li jsf:rendered="#{seguridadBean.autenticado}">
                                 <a href="/usuario/solicitarConsulta.xhtml" class="lin">Solicitar Consulta</a>
@@ -45,10 +45,16 @@
                                 <a href="/usuario/carrito.xhtml" class="lin">Carrito</a>
                             </li>
                             <li jsf:rendered="#{seguridadBean.autenticado}">
+                                <a href="/usuario/Mascota.xhtml" class="lin">Mascotas</a>
+                            </li>
+                            <li jsf:rendered="#{!seguridadBean.autenticadoAdmin}">
                                 <a href="contact.xhtml" class="lin">Contactanos</a>
                             </li>
                             <li jsf:rendered="#{seguridadBean.autenticadoAdmin}">
                                 <a href="/" class="lin">Mis productos</a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.autenticadoAdmin}">
+                                <a href="/admin/crearAfiliacion.xhtml" class="lin">Crear afiliacion</a>
                             </li>
                             <li jsf:rendered="#{seguridadBean.autenticadoAdmin}">
                                 <a href="/admin/crearProducto.xhtml" class="lin">Crear producto</a>

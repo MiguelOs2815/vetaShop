@@ -2,9 +2,7 @@ package co.edu.uniquindio.veterinaria.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,28 +12,24 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pqrs implements Serializable {
 
     @Id
-    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
     private String asunto;
+
+    private String correo;
 
     private String descripcion;
 
     private String fecha;
 
-    @ToString.Exclude
-    @ManyToOne
-    private Cliente cliente;
 
-    public Pqrs(Integer codigo, String asunto, String descripcion, String fecha) {
-        this.codigo = codigo;
-        this.asunto = asunto;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-    }
+
+
 
 }

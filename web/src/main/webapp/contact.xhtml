@@ -9,19 +9,36 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition template="WEB-INF/template.xhtml">
-    <ui:define name="title">Registrarse</ui:define>
+    <ui:define name="title">Contactanos</ui:define>
     <ui:define name="content">
-        <p:panel header="Registrar Usuario">
-            <h:form id="f">
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                <p>From: <p:inputText  value="#{mail.from}"/></p>
-                <p>Mail subject: <p:inputText size="100px" value="#{mail.subject}"/></p>
-                <p>Mail message: <p:inputTextarea value="#{mail.message}"/></p>
+        <p:panel header="Contactanos">
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">
 
-                <p><p:commandButton value="Submit"
-                                    actionListener="#{mail.sendMail()}"
-                                    update="f:messages"/></p>
+
+                    <p:outputLabel value="Correo:" for="codigo_u"/>
+                    <p:inputText id="codigo_u" value="#{usuarioBean.usuario.codigo}" required="true"/>
+                    <p:message for="codigo_u"/>
+
+                    <p:outputLabel value="Asunto:" for="nombre_u"/>
+                    <p:inputText id="nombre_u" value="#{usuarioBean.usuario.nombre}" required="true"/>
+                    <p:message for="nombre_u"/>
+
+                    <p:outputLabel value="Descripcion:" />
+                    <p:textEditor id="descripcion_p" value="#{productoBean.producto.descripcion}" height="300"
+                                  secure="false"/>
+
+
+
+                </h:panelGrid>
+
+                <p:growl showDetail="true" for="msj-bean"/>
+                <p:commandButton value="Enviar" action="#{usuarioBean.registrarUsuario}" update="@form"
+                                 icon="pi pi-user-plus"/>
+
+
             </h:form>
+
         </p:panel>
     </ui:define>
 

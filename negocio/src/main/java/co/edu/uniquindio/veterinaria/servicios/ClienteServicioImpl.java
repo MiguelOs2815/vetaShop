@@ -1,9 +1,6 @@
 package co.edu.uniquindio.veterinaria.servicios;
 
-import co.edu.uniquindio.veterinaria.entidades.Cliente;
-import co.edu.uniquindio.veterinaria.entidades.Consulta;
-import co.edu.uniquindio.veterinaria.entidades.Mascota;
-import co.edu.uniquindio.veterinaria.entidades.Producto;
+import co.edu.uniquindio.veterinaria.entidades.*;
 import co.edu.uniquindio.veterinaria.repo.ClienteRepo;
 import co.edu.uniquindio.veterinaria.repo.ConsultaRepo;
 import co.edu.uniquindio.veterinaria.repo.MascotaRepo;
@@ -82,6 +79,11 @@ public class ClienteServicioImpl implements ClienteServicio{
     public List<Cliente> listarUsuario() {
 
         return usuarioRepo.findAll();
+    }
+
+    @Override
+    public AfiliacionMascota afiliarMascota() throws Exception {
+        return null;
     }
 
 //    @Override

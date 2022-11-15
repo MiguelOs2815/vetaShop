@@ -4,6 +4,7 @@ import co.edu.uniquindio.veterinaria.converter.MascotaConverter;
 import co.edu.uniquindio.veterinaria.dto.ProductoCarrito;
 import co.edu.uniquindio.veterinaria.entidades.*;
 import co.edu.uniquindio.veterinaria.servicios.AdministradorServicio;
+import co.edu.uniquindio.veterinaria.servicios.AfiliacionServicio;
 import co.edu.uniquindio.veterinaria.servicios.ClienteServicio;
 import co.edu.uniquindio.veterinaria.servicios.ProductoServicio;
 import lombok.Getter;
@@ -33,6 +34,9 @@ public class SeguridadBean implements Serializable {
     @Autowired
     private ClienteServicio usuarioServicio;
 
+    @Autowired
+    private AfiliacionServicio afiliacionServicio;
+
     @Getter @Setter
     private Cliente usuarioSesion;
 
@@ -55,6 +59,10 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private Double subtotal;
 
+    //------------AFILIACION---------------------------
+
+    @Getter @Setter
+    private AfiliacionMascota afiliacionMascota;
     //------------CONSULTA---------------------------
 
     @Getter @Setter
@@ -130,6 +138,7 @@ public class SeguridadBean implements Serializable {
         }
 
     }
+
 
     public void eliminarDelCarrito(int indice){
         subtotal-=productosCarrito.get(indice).getPrecio();
@@ -209,6 +218,25 @@ public class SeguridadBean implements Serializable {
             usuarioServicio.crearConsulta(consulta);
             consultasUsuario.add(consulta);
             consulta=new Consulta();
+            mascota= new Mascota();
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
+            FacesContext.getCurrentInstance().addMessage("mensaje_registrar_consulta", facesMessage);
+
+        }catch (Exception e){
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("mensaje_registrar_consulta", facesMessage);
+        }
+    }
+
+    public void comprarAfiliacion(Afiliacion afiliacionParam){
+
+
+        try {
+            Afiliacion afiliacion = afiliacionParam;
+
+            usuarioServicio.afiliarMascota();
+
+
             mascota= new Mascota();
             FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
             FacesContext.getCurrentInstance().addMessage("mensaje_registrar_consulta", facesMessage);

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template.xhtml">
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <h:form>
+        <h:panelGrid columns="3" cellpadding="5" >
+
+
+                        <h1 class="mt-4">#{compraAfiliacionBean.afiliacion.nombre}</h1>
+
+                        <h1 class="mt-4">$#{compraAfiliacionBean.afiliacion.precioMensual}</h1><br></br>
+
+                        <p:outputLabel for="mascota_consulta" value = "Mascota: "/>
+                        <p:selectOneMenu id="mascota_consulta" value="#{seguridadBean.afiliacionMascota.mascota}" converter="#{mascotaConverter}">
+                            <f:selectItem itemLabel="Seleccione la mascota" noSelectionOption="true" itemValue="#{null}"/>
+                            <f:selectItems value="#{seguridadBean.mascotasUsuario}" var="mascota" itemLabel="#{mascota.nombre}" itemValue="#{mascota}"/>
+                        </p:selectOneMenu><br></br><br></br><br></br>
+
+                        <p:outputLabel value="Medios de pago:" for="medioPago" />
+                        <p:selectOneMenu id="medioPago" value="#{seguridadBean.afiliacionMascota.medioPago}" >
+                            <f:selectItem itemLabel="Seleccione un medio de pago" noSelectionOption="true"/>
+                            <f:selectItem itemValue="Efectivo" itemLabel="Efectivo"/>
+                            <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"/>
+                            <f:selectItem itemValue="Pse" itemLabel="Pse"/>
+                            <f:selectItem itemValue="Efecty" itemLabel="Efecty"/>
+                        </p:selectOneMenu>
+                        <p:message for="medioPago"/>
+        </h:panelGrid>
+            <p:commandButton value="REGISTRAR" action= "#{seguridadBean.comprarAfiliacion(compraAfiliacionBean.afiliacion)}" icon="pi pi-plus-circle" update=""/>
+            <p:growl for="mensaje_registrar_consulta" showDetail="true"/>
+        </h:form>
+
+
+
+
+
+
+    </ui:define>
+</ui:composition>
+</html>

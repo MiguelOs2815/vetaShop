@@ -15,6 +15,8 @@ public interface AfiliacionServicio {
 
     Afiliacion obtenerAfiliacion(Integer codigo) throws Exception;
 
+    AfiliacionMascota afiliarMascota()throws Exception;
+
     List<Afiliacion> listarTodosAfiliacion();
 
     List<AtencionMascotas> listarAtencionMascotas();

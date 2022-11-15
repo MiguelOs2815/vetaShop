@@ -15,9 +15,6 @@ import java.util.List;
 public class Cliente extends Persona implements Serializable {
 
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "cliente")
-    private List<Pqrs> pqrsList ;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -31,6 +28,10 @@ public class Cliente extends Persona implements Serializable {
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Comentario> comentarios;
+
+    @OneToMany(mappedBy = "cliente" ,cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<AfiliacionMascota> afiliacionMascotas;
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     @ToString.Exclude

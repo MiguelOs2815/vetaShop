@@ -11,6 +11,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Afiliacion implements Serializable {
@@ -49,6 +50,10 @@ public class Afiliacion implements Serializable {
     @Column(nullable = false, length = 300)
     private String descripcion;
 
+    @OneToMany(mappedBy = "afiliacion" ,cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<AfiliacionMascota> afiliacionMascotas;
+
     @Positive
     private Double precioAnual;
 
@@ -58,14 +63,5 @@ public class Afiliacion implements Serializable {
     @OneToOne
     private Mascota mascota;
 
-    public Afiliacion(String nombre, String nombrePublicacion, List<AtencionMascotas> atencionMascotas, List<Asistencia> asistenciaMascotas, List<TipoMascotas> tipoMascotas, Double precioMensual, String descripcion) {
-        this.nombre = nombre;
-        this.nombrePublicacion = nombrePublicacion;
-        this.atencionMascotas = atencionMascotas;
-        this.asistenciaMascotas = asistenciaMascotas;
-        this.tipoMascotas = tipoMascotas;
-        this.precioMensual = precioMensual;
-        this.descripcion = descripcion;
-        this.precioAnual = precioMensual*12;
-    }
+
 }

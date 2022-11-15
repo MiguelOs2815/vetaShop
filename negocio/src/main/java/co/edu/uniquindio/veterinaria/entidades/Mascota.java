@@ -10,6 +10,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Mascota implements Serializable {
@@ -36,16 +37,19 @@ public class Mascota implements Serializable {
     @OneToOne(mappedBy = "mascota")
     private Afiliacion afiliacion;
 
+    @OneToMany(mappedBy = "producto" ,cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<DetalleCompra> detalleCompras;
+
+    @OneToMany(mappedBy = "mascota" ,cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<AfiliacionMascota> afiliacionMascotas;
+
     /*@ToString.Exclude
     @OneToOne(mappedBy = "mascota")
     private Historial historial;
 
      */
 
-    public Mascota(String nombre, String edad, TipoMascotas tipoMascotas, String raza) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.tipoMascotas = tipoMascotas;
-        this.raza = raza;
-    }
+
 }

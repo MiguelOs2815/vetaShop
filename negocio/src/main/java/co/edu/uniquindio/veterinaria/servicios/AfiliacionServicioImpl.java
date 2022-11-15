@@ -47,6 +47,11 @@ public class AfiliacionServicioImpl implements AfiliacionServicio{
     }
 
     @Override
+    public AfiliacionMascota afiliarMascota() throws Exception {
+        return null;
+    }
+
+    @Override
     public List<Afiliacion> listarTodosAfiliacion() {
         return afiliacionRepo.findAll();
     }
